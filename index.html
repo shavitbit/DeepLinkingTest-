@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Linking Test</title>
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function redirectToApp() {
+            // Extract the state parameter from the URL
+            const state = getQueryParam('state');
+
+            // Define your app's deep link URL scheme
+            const appScheme = 'myapp://auth-success';
+
+            if (state) {
+                // Construct the deep link with the state parameter
+                const deepLink = `${appScheme}?state=${encodeURIComponent(state)}`;
+                window.location.href = deepLink;
+            } else {
+                document.getElementById('message').textContent = 'No state parameter found!';
+            }
+        }
+
+        // Redirect when the page loads
+        window.onload = redirectToApp;
+    </script>
+</head>
+<body>
+    <h1>Redirecting...</h1>
+    <p id="message">If you are not redirected, check if your app is installed.</p>
+</body>
+</html>
+
